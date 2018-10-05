@@ -1,11 +1,3 @@
-hbuilder中git的使用:
-	https://blog.csdn.net/oskey_ykf/article/details/78127958
-	右键->导入->git->...
-
-
-
-
-
 官方网站:
 http://git-scm.com/
 
