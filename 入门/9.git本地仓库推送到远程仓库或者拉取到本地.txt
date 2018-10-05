@@ -1,0 +1,30 @@
+	8>>>>>>本地仓库文件推送到远程服务器
+		git push 远程仓库地址	分支名称
+	例如:
+		git push https://github.com/yangyangzuo/fk.git master
+        为了推送方便，我们可以为url建立一个别名
+        git remote add [<options>] <name> <url>
+        git remote add mycode https://github.com/yangyangzuo/fk.git
+        这样就本地的库mycode就和远程的url对应起来了
+        在推送的时候，可以直接执行
+        git push mycode master
+        这条命令会把本地的代码push到名字为mycode对应的https://github.com/yangyangzuo/fk.git上的
+        master分支上了
+
+
+	注意:远程服务器必须是一个空的仓库，在GitHub上创建一个仓库,这个仓库不能有任何文件,不能勾选
+	github上默认生成readme.md这个选项
+		
+	>>>>>>>拉取到本地
+		git clone 远程仓库地址
+		或者
+		git pull 远程仓库地址	分支名称
+	本地在拉取的时候，注意，本地的目录也必须是一个初始化的git仓库，而且该仓库里面没有任何文件
+			
+		
+		
+	
+		
+		
+		
+		

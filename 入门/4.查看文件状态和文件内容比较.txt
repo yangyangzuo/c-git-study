@@ -1,0 +1,42 @@
+		
+5>>>>.查看当前文件的状态
+		git status
+		创建文件-> git status
+		保存到暂存区--> git status
+		再次创建新文件--> git status
+		提交 --> git status
+		把新文件保存到暂存区 --> git status
+		提交 --> git status
+		
+		
+		注意以下使用场景:
+		
+		1.初始代码库,新创建一个文件a.txt   -->git status
+		2.git add a.txt(此时,a.txt文件已经被tracked,即:被git跟踪/被git纳入了提交列表中,该文件被放入到暂存区) 
+		-->git status
+		3.git commit -m "提交说明"(这个时候，会把提交列表中记录的文件都更新) --git status
+		
+		
+		
+		
+		1.新创建一个文件a.txt(111111)  -->git status
+		2.git add a.txt(此时,a.txt文件已经被tracked,即:被git跟踪/被git纳入了提交列表中) -->git status
+		3.编辑a.txt(111111,222222),更改了内容(注意:这个时候的a.txt，不是我们刚才我们纳入提交列表中的a.txt文件了) -->git status
+		此时a.txt内容:11111,22222
+		暂存区中a.txt内容:11111
+		git diff命令可以查看当前文件的实际内容和暂存区中文件内容的区别
+		4.git commit -m "提交说明"(这个时候,如果我们提交，提交的是暂存区记录的文件的内容) --->git status
+		
+		这个时候我们并没有把修改后的a.txt内容保存到代码库,所以需要再来一次 
+		git add .
+		git commit -m "提交说明"
+		
+		git diff命令说明:
+		git diff
+		显示的是工作目录中的文件的内容(工作中的目录和暂存区中的文件的内容的差别)
+		
+		git diff --cached或者 git diff --staged
+		显示的是暂存区的那个文件的内容(暂存区中的内容和上次提交的内容的差别)
+		
+		
+	

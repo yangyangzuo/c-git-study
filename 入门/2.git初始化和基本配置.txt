@@ -1,0 +1,109 @@
+
+
+2>>>>.git初始化和基本配置
+
+	2.1>>git的初始化
+		把我们的代码文件交给git管理有2种方式:
+		第一种, 从别的代码库地址克隆一个新的git代码库
+		第二种, 把现有的文件导入到git中(把本地文件交给git仓库管理)
+		
+		
+		2.1.1>>克隆一个别人创建好的git代码库
+			语法:
+				git clone 地址 [可选目录]
+			例如:
+				git clone https://github.com/jquery/jquery.git 
+				这个时候会在当前目录下创建一个jquery文件夹,并在这个文件夹下初始化一个.git目录
+				从远程仓库拉下所有数据放入到.git目录中，
+				然后从.git目录中读取最新文件的版本拷贝到刚才创建的jquery文件夹中
+				最终，这个jquery文件夹里的文件就是一个完整的jquery代码库
+				这个被克隆的代码库和源地址中的代码内容一模一样
+				
+				
+			
+		2.1.2>>把现有的文件/文件夹导入到git中
+			如果你打算使用 Git 来对现有的项目进行管理，你只需要进入该项目目录并输入：
+			git init
+				该命令将会在当前的文件夹中创建一个名为 .git 的子目录，
+				这个子目录含有你初始化的Git仓库中所有的必须文件.
+				.git文件夹是git自动帮我们生成的，这个里面记录着你的文件的修改和版本信息.
+				我们不能自己手动修改该文件夹及里面的内容
+				
+				我们初始化目录完成后，就可以把我们的文件交于git来管理了,一般我们需要3步:
+				1.初始化目录,创建文件
+				2.把文件添加到暂存区
+				3.根据暂存区的记录把文件添加到代码库
+		
+			例如:
+				git init
+				echo "123">1.txt
+				git add 1.txt
+				git commit -m "提交文件说明"
+			//这个提交不成功?提示我们配置用户名和邮箱
+			
+	
+	
+	2.2>>git的基本配置
+		配置代码上传者的用户名和邮箱
+		为什么要配置用户名和邮箱?
+			配置邮箱和用户名来记录每次代码提交都是谁提交的，用来区分代码的上传者
+			代码提交的时候，如果没有配置用户名和邮箱，是不允许提交的
+		
+		代码保存到git仓库,分三步,
+		第一,git仓库初始化,添加文件、修改文件、删除文件
+		第二,把文件添加到暂存区/中转区(staged area),中转区记录了哪些文件需要提交，以及这些文件做了哪些更改
+			(git add 命令会把文件交给git跟踪(tracked),被git跟踪的文件，git会监视这些文件，每次提交的时候，
+			会给出提示哪些文件做了修改，修改了什么东西)
+		第三,根据中转区记录的文件索引，把文件提交到代码库
+		
+		
+		
+		
+		如何配置用户名和邮箱?
+		git config --global user.name "xiaoxiao"
+		git config --global user.email "xiaoxiao@163.com"
+		
+		如何修改用户名和邮箱?
+		把命令再执行一遍(或者直接修改对应的配置文件):
+		git config --global user.name "xiaoxiao2"
+		git config --global user.email "xiaoxiao2@163.com"
+		
+		如何查看一个具体的配置的值?
+		比如查看提交的用户名:
+		git config --global --get user.name
+		git config --global user.name
+		git config --global --get user.email
+		git config --global user.email
+		如何查查看当前配置下的所有设置用户名和密码?
+		git config --global -l
+		
+		
+		
+		
+		扩展:
+		git的配置文件:
+		git config命令后面可以带3个选项用来和配置文件关联
+		git config --system 
+		git config --global
+		git config --local
+		这3个配置选项分别对象着3个文件
+		--system参数选项
+			表示在配置的时候会读取/写入你电脑上的 "/etc/gitconfig文件",
+			这个文件包含系统上每一个用户及他们仓库的通用配置.
+			如果使用带有 --system 选项的 git config 时，它会从此文件读写配置变量。
+		
+		--global参数选项
+			表示在配置的时候会读取/写入你电脑上的 "~/.gitconfig"文件,该文件只针对当前用户 
+		
+		--local参数选项
+			表示在配置的时候会读取/写入你电脑上的当前使用仓库的 Git 目录中的 config 文件
+			（就是 .git/config）:针对该仓库。
+		
+		window会在当前用户目录下查找c:/用户/用户名/.gitconfig文件(c:/user/Administrator/.gitconfig)
+		
+		如何查看git config命令的帮助:
+		git config
+		git help config
+		
+		
+		

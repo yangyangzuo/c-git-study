@@ -1,0 +1,107 @@
+1.git简介和下载安装
+2.使用命令行实现git代码管理操作
+	为什么要学习命令行?
+		命令行有助于我们理解git的内部实现机制
+		git图形工具有很多，学会了命令行，图形工具可以很容易上手
+3.图形工具实现git代码管理 
+	图形客户端下载:
+		https://git-scm.com/downloads/guis
+	window版:
+		sourcetree
+		github desktop
+		tortoiseGit + beyondcompare
+		GitKraken
+		git自带图形工具
+	mac版:
+		sourcetree
+		github desktop
+		GitKraken
+	linux版:
+		GitKraken
+		gitg
+		git-cola
+		
+	
+4.开发工具插件结合实现代码管理
+	hbuider中使用git
+	sublime中使用git
+	eclipse中使用git
+	atom中使用git
+	
+
+		
+5.git相关资料/文档/图书推荐
+	图书推荐:
+		http://taobao.com
+	官方文档:
+		https://git-scm.com/doc
+	其他学习文档:
+		https://jwiegley.github.io/git-from-the-bottom-up/
+		https://github.com/pluralsight/git-internals-pdf
+		http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html
+		http://backlogtool.com/git-guide/cn/
+		https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
+	
+6.git服务器搭建
+	Gitlab
+	Gogs	
+	
+
+
+
+
+
+
+
+
+
+1>>>>git简介和下载安装
+
+	1.1>>git的简介
+	
+	git的发音:
+		音译(给特),git里面的字母g，发音和get,good,great,geek,github相同，不要发音为(鸡特)
+	
+	git是什么?
+		git是一种版本控制系统软件.
+	什么是版本控制? 我为什么要关心它呢？ 
+		版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。 
+		我们可以查看每一个版本的具体内容，同时可以把内容恢复到一个具体的版本
+		我们不仅仅可以对软件源代码的文件作版本控制，实际上，可以对任何类型的文件进行版本控制。
+	git的诞生？
+		Linux操作系统的内核源码以前通过手工进行源代码的版本维护.
+		1991－2002年间,Linux 内核维护工作都花在了提交补丁和保存归档的繁琐事务上
+		2002年，linxu整个项目组开始启用一个专有的分布式版本控制系统 BitKeeper 来管理和维护代码
+		2005年，开发BitKeeper 的商业公司同 Linux 内核开源社区的合作关系结束，他们收回了 Linux 内核社区免费使用 BitKeeper 的权力。 这就迫使 Linux 开源社区（特别是 Linux 的缔造者 Linus Torvalds）基于使用 BitKeeper 时的经验教训，开发出自己的版本控制系统git。 
+		他们对新的系统制订了若干目标：
+			速度
+			简单的设计
+			对非线性开发模式的强力支持（允许成千上万个并行开发的分支）
+			完全分布式
+			有能力高效管理类似 Linux 内核一样的超大规模项目（速度和数据量）
+		
+		自诞生于 2005 年以来，Git 日臻成熟完善，在高度易用的同时，仍然保留着初期设定的目标。 
+		它的速度飞快，极其适合管理大项目，有着令人难以置信的非线性分支管理系统
+		现在已经成为世界上最流行的分布式版本控制系统
+		
+	1.2>>git的下载和安装
+	
+		官网下载:
+			https://git-scm.com/
+			或者
+			https://git-scm.com/downloads
+			点击下载，即可安装	
+			
+		window版:
+			下载后，双击，一直next即可
+			安装完成后，在空白处点击右键,出现git gui here和git bash here,即为安装成功
+			我们打开cmd或者右键中的git bash here,输出git --version可以查看当前的git的安装版本
+		
+		mac版:
+			1.双击下载的安装包git-2.13.1-intel-universal-mavericks.dmg
+			2.双击打开安装包可能会提示: "打不开..因为他来自身份不明的开发者"
+			解决方法1:右键点击，再点打开(或者摁住ctrl点左键，再点击打开,按住ctrl点左键实际是模拟右键点击)
+			解决方法2:打开系统偏好设置,然后打开安全性与隐私,然后更改"允许从以下位置下载的应用程序"
+			安装完成后，打开命令行,输入git --version，提示对应的版本，即为安装成功
+			
+			

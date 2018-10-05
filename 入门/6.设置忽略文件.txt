@@ -1,0 +1,21 @@
+
+		
+		
+		
+		7>>>>>设置忽略文件
+		1.git init 
+		2.git add .
+		3.git commit -m "提交说明"
+		第2步会把当前文件夹的所有文件都放置到暂存区,会有一些系统或者其他生成的文件
+		.gitignore文件里面的内容设置的是被git忽略的文件和目录，
+		即:这个文件里面指定的内容不会被git跟踪，不会被git管理
+		那么自然也不会被提交到代码库里面
+		
+		例如:
+		test文件夹下有如下文件
+			.git(git初始化目录)
+			a.html(项目文件)
+			.project(ide生成的文件)
+		我们只想让git监视a.html,所以此时在test目录创建.gitignore文件,内容如下:
+		.project
+		.gitignore
