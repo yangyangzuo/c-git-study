@@ -2,7 +2,7 @@
 		
 		git log 
 		git log --oneline
-		
+		git reflog
 		
 		
 		9>>>>>git版本的回退
@@ -18,20 +18,29 @@
 		9.提交
 		10.老板看代码，发现有问题，第4天的内容功能不需要了，这个时候我们想回到第二天写的
 		
-		git reset --hard Head~0
-		缺点：1.不能像后指，2.如果有很多次提交，计算起来太麻烦,可能会计算错误
-		
 		
 		head表示的一个指针，他指向的是我们最后一次提交的结果
-		head指针只能向前指向，不能向后指
 		git工具-->重置解密(git-scm book->7.7)
 		
-		//根据具体的索引值也可以回退到具体的版本
+		//方法1:
+		//根据具体的索引值也回退到具体的版本,可向前向后移动
 		git reset --hard 版本的索引值
+		例如:git reset --hard 02dfe2
+
+		方法2:
+		使用^符号,只能向前面的版本移动
+		git reset --hard head^
+		一个^表示向前移动一个版本，多个^表示向前移动多个版本
+		git reset --hard head^^^
+		向前移动3个版本
 		
-		git reset --hard 02dfe2
+		方法3:
+		使用~符号，只能向前移动若干版本
+		git reset --hard head~1
+		向前移动一个版本
+		git reset --hard head~3
+		向前移动三个版本
 		
-		git reflog 查看版本操作记录
 		
 		
 		
