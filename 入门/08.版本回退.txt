@@ -3,8 +3,10 @@
 		或者
 		https://git-scm.com/docs/git-reset
 
-		git reset --hard
-		git reset --soft
-		git reset --mixed
-
 		
+		git reset --soft
+			暂存区和工作目录文件不更改，本地库里面的指针被修改
+		git reset --mixed
+			工作目录里面的文件不更改，暂存区文件被修改，本地库指针被修改
+		git reset --hard
+			工作目录，暂存区文件被修改，本地库指针被修改
