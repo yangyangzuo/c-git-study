@@ -1,2 +1,10 @@
 	版本回退:
-		git reset 
+		git help reset
+		或者
+		https://git-scm.com/docs/git-reset
+
+		git reset --hard
+		git reset --soft
+		git reset --mixed
+
+		
