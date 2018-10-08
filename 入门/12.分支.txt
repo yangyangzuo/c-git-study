@@ -1,0 +1,16 @@
+git init默认创建分支master
+查看当前所有分支:
+    git branch
+例如:
+    git branch
+    执行结果:
+    * master
+
+创建新分支:
+    git branch 分支名
+例如:
+    git branch testbranch
+    git branch
+    执行结果:
+    * master
+    testbranch
