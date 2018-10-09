@@ -1,10 +1,12 @@
 git init默认创建分支master
+
 查看当前所有分支:
     git branch
 例如:
     git branch
     执行结果:
-    * master
+        * master
+
 
 创建新分支:
     git branch 分支名
@@ -12,5 +14,53 @@ git init默认创建分支master
     git branch testbranch
     git branch
     执行结果:
-    * master
-    testbranch
+        * master
+        testbranch
+    *所在的行，即是当前代码所在的分支
+
+
+
+切换分支:
+    git checkout 分支名
+例如:
+    git checkout testbranch
+    git branch
+    执行结果:
+      master
+    * testbranch    
+    此时*指向testbranch,表示当前所在testbranch分支
+    分支的切换实际就是head指针指向一个特定的分支，指向的分支就是当前所在的分支
+    换句话说:head指针永远指向当前git所在的分支
+    注意:
+        如果切换了分支，则当前工作区会变成所在的分支版本记录时的文件内容
+
+
+合并分支:
+    例如:把分支testbranch合并到master分支上
+    1.切换到master分支
+        git checkout master
+    2.执行合并命令
+        git merge testbranch
+    此时分支testbranch被合并到了当前所在的分支(master)
+
+
+
+分支冲突:
+    ------------------------------------
+    |   <<<<<<< HEAD                    |
+    |   ddddd   mmmmmmmmaster           |
+    |   =======                         |
+    |   ddddd   tttttttestbranchf       |
+    |   >>>>>>> testbranch              |
+    -------------------------------------
+如果分支发生冲突，则会出现如上所述:
+    1.
+    <<<<< head和======之间的内容表示当前所在的分支的文件的内容
+    head指向的是当前所在的分支
+
+    2.
+    ========和>>>>>> testbranch之间的内容表示的是testbranch分支里面的内容
+
+解决分支,只需要把   <<<<所在行,====所在行,>>>>所在行删除就可以了
+当然，冲突的代码内容，根据需要调整删除
+即可解决冲突，此时，再次add,commit就可以了
