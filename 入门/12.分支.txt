@@ -1,5 +1,10 @@
 git init默认创建分支master
 
+
+分支的意义：
+    1.并行开发，开发部分功能，未开发完成，不能提交到主分支，可以提交到分支保存
+
+
 查看当前所有分支:
     git branch
 例如:
@@ -36,7 +41,7 @@ git init默认创建分支master
 
 
 合并分支:
-    例如:把分支testbranch合并到master分支上
+    例如:把分支testbranch的内容合并到master分支上
     1.切换到master分支
         git checkout master
     2.执行合并命令
