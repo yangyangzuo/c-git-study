@@ -1,13 +1,7 @@
-#当前目录下文件夹
-视频
-test
 #排除子目录下的所有的如下文件夹
-/*/.DS_Store
-/*/*.log
-/*/node_modules
-/*/dist
-/*/lib
-/*/es
-/*/coverage
-
+**/.DS_Store
+**/*.log
+**/node_modules
+**/dist
+**/视频
 
