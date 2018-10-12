@@ -12,16 +12,68 @@
         master分支上了
 
 
-	注意:远程服务器必须是一个空的仓库，在GitHub上创建一个仓库,这个仓库不能有任何文件,不能勾选
-	github上默认生成readme.md这个选项
+		1.查看当前远程仓库的别名
+			列出当前创建了哪些git仓库别名
+			git remote
+			列出远程git仓库和对应的别名
+			git remote -v
+			或者
+			git remote --verbose
+		2.如果当前没有设置对应的远程仓库别名
+			可以通过git add [name] [url]来添加
+
+		3.移除对应的远程仓库别名
+			git remote remove [name]
+			或者
+			git remote rm [name]
+
+
+	例子:
+		本地新建分支，并且推送到远程
+		假如本地有一个master分支和远程master分支对应
+		1.本地创建新分支testbranch
+		2.查看远程仓库别名映射，假如是:
+		git remote -v
+		origin  https://github.com/yangyangzuo/webgl-test.git (fetch)
+		origin  https://github.com/yangyangzuo/webgl-test.git (push)
+		3.推送到远程仓库
+		git push 远程仓库别名(或者远程仓库url) 本地分支名:远程仓库分支名
+		(注意:执行该命令式时,
+			1.当前所在哪个分支都无所谓,
+			2.推送到远程的分支名可以和本地分支名称不相同
+			即:
+				会根据命令中指定的分支，在远程仓库新建一个分支
+			
+			如果本地分支和远程新建的分支起的名称不一致，很容易混乱，所以最好名称一致
+		)
+		git push origin testbranch:testb
+
+
+
+	删除远程分支:
+		推送一个空分支到远程分支，其实就相当于删除远程分支：
+		$ git push origin :testb
+		或者
+		命令:git push 远程仓库别名/url --delete 远程分支名称
+		$ git push origin --delete testbbb
 		
+
 	>>>>>>>拉取到本地
 		git clone 远程仓库地址
 		或者
-		git pull 远程仓库地址	分支名称
+		
+
+		1.把远程分支拉取到本地当前所在的分支里面(有可能有代码冲突，需要手动解决冲突)
+		git pull 远程仓库地址/别名	远程分支名称
+		2.把远程分支拉取到本地特定分支里面(有可能有代码冲突，需要手动解决冲突)
+		
+
+
 	本地在拉取的时候，注意，本地的目录也必须是一个初始化的git仓库，而且该仓库里面没有任何文件
 			
-		
+	
+	注意:
+
 		
 	
 		

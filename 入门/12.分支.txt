@@ -5,13 +5,25 @@ git init默认创建分支master
     1.并行开发，开发部分功能，未开发完成，不能提交到主分支，可以提交到分支保存
 
 
-查看当前所有分支:
+查看当前本地所有分支:
     git branch
+查看本地和远程所有分支:
+    git branch -a
 例如:
     git branch
     执行结果:
         * master
 
+    git branch -a
+    执行结果:
+        * master
+        testbranch
+        remotes/origin/HEAD -> origin/master
+        remotes/origin/master
+        remotes/origin/testb
+        remotes/origin/testbbb
+    master和testbranch是本地仓库
+    下面的master,testb,testbbb是远程仓库
 
 创建新分支:
     git branch 分支名
@@ -22,6 +34,7 @@ git init默认创建分支master
         * master
         testbranch
     *所在的行，即是当前代码所在的分支
+
 
 
 
@@ -38,6 +51,23 @@ git init默认创建分支master
     换句话说:head指针永远指向当前git所在的分支
     注意:
         如果切换了分支，则当前工作区会变成所在的分支版本记录时的文件内容
+
+
+创建一个新分支并且立即切换到该分支上:
+    git checkout -b 分支名
+
+
+
+
+删除本地分支:
+    git branch -d 分支名
+    注意:
+        不能删除当前所在的分支
+    例如：当前在branchA，则不能通过命令删除branchA，需要先切换到其他分支，再删除当前分支
+
+
+
+
 
 
 合并分支:
