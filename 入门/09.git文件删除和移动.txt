@@ -51,6 +51,10 @@
 	git mv 文件 新文件名
 	执行完后，提交即可
 
+	或者
+	直接在工作区修改文件名
+	然后add和commit即可
+
 	其实，运行 git mv 就相当于运行了下面三条命令：
 	$ mv README.md README
 	$ git rm README.md
