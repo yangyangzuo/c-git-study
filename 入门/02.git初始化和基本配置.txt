@@ -94,12 +94,15 @@
 		
 		--global参数选项
 			表示在配置的时候会读取/写入你电脑上的 "~/.gitconfig"文件,该文件只针对当前用户 
+			~在windows中表示c:/用户/用户名
+			例如:
+				当前登陆用户名是administrator
+				则 ~/.gitconfig 表示 c:/user/Administrator/.gitconfig
 		
 		--local参数选项
 			表示在配置的时候会读取/写入你电脑上的当前使用仓库的 Git 目录中的 config 文件
 			（就是 .git/config）:针对该仓库。
 		
-		window会在当前用户目录下查找c:/用户/用户名/.gitconfig文件(c:/user/Administrator/.gitconfig)
 		
 		如何查看git config命令的帮助:
 		git config

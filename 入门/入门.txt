@@ -2,8 +2,9 @@
 http://git-scm.com/
 
 文档:
-http://git-scm.com/doc
-(随便点开一章,里面有翻译的中文)
+https://git-scm.com/docs
+https://git-scm.com/book/en/v2
+
 
 图形客户端下载:
 https://git-scm.com/downloads/guis
