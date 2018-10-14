@@ -1,0 +1,6 @@
+	>>>>>>>拉取到本地
+		git clone 远程仓库地址
+		
+		clone命令执行完后，会自动创建一个远程仓库的别名叫做origin
+		相当于做了如下操作:
+		git remote add origin 远程仓库地址

@@ -7,6 +7,8 @@ git init默认创建分支master
 
 查看当前本地所有分支:
     git branch
+查看远程所有分支:
+    git branch -r
 查看本地和远程所有分支:
     git branch -a
 例如:
