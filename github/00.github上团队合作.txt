@@ -1,2 +1,0 @@
-git project---->settings---->collaborators
-add collaborators-->输入人员git账号--->发送链接，人员点击即可

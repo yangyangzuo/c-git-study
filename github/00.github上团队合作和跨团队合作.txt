@@ -1,0 +1,10 @@
+团队合作:
+    把人员加入到代码库的团队中，则这个人就可以方便的提交合并代码了
+git project---->settings---->collaborators
+add collaborators-->输入人员git账号--->发送链接，人员点击即可
+
+跨团队合作:
+    github上找到对应的团队的代码,fork对应的分支，
+    然后修改代码，提交，
+    向对应的团队代码库提交一个pull request
+    对应的团队，收到pull request，检查代码，如果没问题，执行合并就可以了
