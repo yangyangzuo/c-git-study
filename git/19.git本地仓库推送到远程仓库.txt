@@ -75,7 +75,7 @@
 
 		简化版:
 			git push [<repository> [<refspec>…​]
-
+			git push [<远程主机名>] [<本地分支名>:<远程分支名>]
 
 
 			
@@ -94,10 +94,10 @@
 		如果缺少配置，则默认为origin。
 		例如:
 			git push 远程仓库地址/仓库别名(respsitory) 远程分支名
-			如果远程仓库地址未指定,则默认是origin,即:
-			git push 远程分支名
+			如果远程仓库地址未指定,则查找branch.*.remote配置，如果配置丢失，则默认是origin,即:
+			git push [<refspec>…​]
 			则等价于
-			git push origin 远程分支名
+			git push origin [<refspec>…​]
 
 
 
@@ -107,6 +107,8 @@
 		该命令将查找remote.*.push配置中的默认<refspec>，
 		and if it is not found, honors push.default configuration to decide what to push (See git-config[1] for the meaning of push.default).
 		如果没有找到它，则通过push.default配置来决定(被推动的分支和远程的接收分支)（见的git-配置[1]为的意思push.default）。
+		push.default默认配置模式是simple,可以通过git config 命令设置push.default配置值，例如:
+		git config --global push.default matching
 		例如:
 			git push origin 
 			没有指定具体的推送分支和接收分支，则依次查找remote.*.push和push.default配置中的<refspec>
@@ -131,6 +133,32 @@
 				等价于
 				git push origin 当前所在的分支名:远程仓库相同的分支名
 		
+			注意:如果当前分支名，在远程不存在，则无法使用push.default默认配置模式(simple)推送
+			即:
+				如果本地有分支test,服务器也有test分支，想把本地test分支推送到服务器test分支,则
+				(切换到本地test分支)git push
+				等价于
+				(切换到本地test分支)git push origin
+				等价于
+				(切换到本地test分支)git push orgin test
+				等价于
+				(在本地任意分支)git push origin test:test
+				如果本地有分支test,远程服务器没有分支test,则simple默认不允许推送，
+			即:
+				git push 
+				报错:
+				fatal: The current branch test3 has no upstream branch.
+				To push the current branch and set the remote as upstream, use
+					git push --set-upstream origin test3
+				远程没有test3分支，需要使用如下命令关联:
+				切换到本地test3分支
+				git push --set-upstream origin test3
+				或者
+				git push -u origin test3
+				执行一次以后，则本地的test3就和origin仓库的test3建立了关系
+				以后，在test3分支上，直接执行如下命令，就可以把test3分支切换到远程test3分支上
+				git push 
+
 		
 
 		
