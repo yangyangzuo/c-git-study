@@ -1,0 +1,55 @@
+	8>>>>>>查看git的提交日志
+		https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2
+		https://git-scm.com/docs/git-log
+		
+		
+		git log 
+		git log --oneline
+		git reflog
+		
+
+		git log 
+			默认不用任何参数的话，git log 会按提交时间列出所有的更新，最近的更新排在最上面
+		例如:
+			commit 94a63047e8f8e53f9009c23f50605ecc2c91952b		(每个提交的 SHA-1 校验和)
+			Author: zuo <502372554@qq.com>						(作者的名字和电子邮件地址)
+			Date:   Sun Oct 14 17:41:04 2018 +0800				(提交时间)
+				add fetch										(提交说明)
+
+		以图形的方式，显示分支及其提交合并日志
+		git log --graph
+		例如:
+		|
+		* commit 0e1d303ac71b81822b7d23ff0a14539f101e0e7e
+		| Author: zy15038228071 <502372554@qq.com>
+		| Date:   Sat Sep 29 18:07:37 2018 +0800
+		|
+		|     添加搜索功能
+		|
+		*   commit 6346597edb76c44bb601c66260db3701d3edecb3
+		|\  Merge: c9fd08c 9fd2e56
+		| | Author: zy15038228071 <502372554@qq.com>
+		| | Date:   Sat Sep 29 12:06:31 2018 +0800
+		| |
+		| |     Merge branch 'v2' of https://git.coding.net/dr_yao/Qizh.App into zy
+		| |
+		| *   commit 9fd2e5648d0972f60686302bb5cbc9bbcf6d426e
+		| |\  Merge: 95f6b8a f7934bd
+		| | | Author: Dr_Yao <149126@qq.com>
+		| | | Date:   Sat Sep 29 11:19:20 2018 +0800
+		| | |
+		| | |     Accept Merge Request #368: (zy -> v2)
+		| | |     Merge Request: 0928
+		| | |     Created By: @Dr_Yao
+		| | |     Accepted By: @Dr_Yao
+		| | |     URL: https://coding.net/u/dr_yao/p/Qizh.App/git/merge/368
+		
+
+
+
+
+		
+		
+		
+		
+		
