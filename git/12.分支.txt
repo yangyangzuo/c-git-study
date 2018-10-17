@@ -1,71 +1,124 @@
+参考:
+    https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%AE%80%E4%BB%8B
+
 git init默认创建分支master
+
+    当第一次提交后，master指向第一次的提交对象(对象里面的parent属性为null)的地址(指针),而且还有一个head指针指向当前的分支(master)
+
+    当第二次提交后，master指向第二次的提交对象(对象里面的parent属性指向上次的提交对象)的地址(指针),而且还有一个head指针指向当前的分支(master)
+
+    ...
+
+    多次提交之后，由于parent属性的关系，就会形成一个链式结构,这个完整的链式结构，我们可以通过分支来获得(分支对象总是指着最后一次提交的对象)
+
+    注意:
+        提交对象:{
+            文件大小,
+            目录树结构,
+            parent指针,
+            author,
+            commiter,
+            提交描述
+        }
+
+        分支对象:总是指向最后一次的提交对象
+
+        head指针:总是指向当前的分支对象,例如：你切换了另一个分支，则head指针就指向了另一个分支对象
+
+        提交者(committer)和作者(author)的区别:
+            https://stackoverflow.com/questions/18750808/difference-between-author-and-committer-in-git
+            author是代码的编写者
+            commiter是代码的提交者
+            git中允许对代码重写,或者打补丁(https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2)
+
 
 
 分支的意义：
     1.并行开发，开发部分功能，未开发完成，不能提交到主分支，可以提交到分支保存
 
 
-查看当前本地所有分支:
-    git branch
-查看远程所有分支:
-    git branch -r
-查看本地和远程所有分支:
-    git branch -a
-例如:
-    git branch
-    执行结果:
-        * master
 
-    git branch -a
-    执行结果:
-        * master
-        testbranch
-        remotes/origin/HEAD -> origin/master
-        remotes/origin/master
-        remotes/origin/testb
-        remotes/origin/testbbb
-    master和testbranch是本地仓库
-    下面的master,testb,testbbb是远程仓库
+查看分支:
+        查看当前本地所有分支:
+            git branch
+        查看远程所有分支:
+            git branch -r
+        查看本地和远程所有分支:
+            git branch -a
+        例如:
+            git branch
+            执行结果:
+                * master
+
+            git branch -a
+            执行结果:
+                * master
+                testbranch
+                remotes/origin/HEAD -> origin/master
+                remotes/origin/master
+                remotes/origin/testb
+                remotes/origin/testbbb
+
+            master和testbranch是本地仓库
+            下面的master,testb,testbbb是远程仓库
+            *表示的是head指针所指向的分支，即:当前所在的分支
 
 创建新分支:
-    git branch 分支名
-例如:
-    git branch testbranch
-    git branch
-    执行结果:
-        * master
-        testbranch
-    *所在的行，即是当前代码所在的分支
+        git branch 分支名
+        例如:
+            git branch testbranch
+            git branch
+            执行结果:
+                * master
+                testbranch
+            *所在的行，即是当前代码所在的分支
 
+        当创建一个新分支的时候，这个分支指向的提交对象和我们当前分支所指向的提交对象相同
 
 
 
 切换分支:
-    git checkout 分支名
-例如:
-    git checkout testbranch
-    git branch
-    执行结果:
-      master
-    * testbranch    
-    此时*指向testbranch,表示当前所在testbranch分支
-    分支的切换实际就是head指针指向一个特定的分支，指向的分支就是当前所在的分支
-    换句话说:head指针永远指向当前git所在的分支
-    注意:
-        如果切换了分支，则当前工作区会变成所在的分支版本记录时的文件内容
+        git checkout 分支名
+        例如:
+            git checkout testbranch
+            git branch
+            执行结果:
+            master
+            * testbranch    
+            此时*指向testbranch,表示当前所在testbranch分支
+            分支的切换实际就是head指针指向一个特定的分支对象，指向的分支就是当前所在的分支
+            换句话说:head指针永远指向当前git所在的分支
+        注意:
+            如果切换了分支，则当前工作区会变成所在的分支版本记录时的文件内容
+            即:切换分支做了2件事:
+            1.把head指针对象指向特定的分支对象(这里记做分支testbranch)
+            2.把当前工作区中的文件按照  这个对应的分支对象(分支testbranch)所指向的提交对象中的(文件结构，目录数结构) 还原
+
+            第一次提交对象-->第二次提交-->........>第n次提交---->n+1次提交
+                                ^                   ^
+                                |                   |
+                                |                   |             
+                            master分支          testbranch分支
+                                                    ^
+                                                    |
+                                                 head指针                                                    
 
 
-创建一个新分支并且立即切换到该分支上:
-    git checkout -b 分支名
+
+
+
+
+        创建一个新分支并且立即切换到该分支上:
+            git checkout -b 分支名
 
 
 
 
 删除本地分支:
-    git branch -d 分支名
-    注意:
-        不能删除当前所在的分支
-    例如：当前在branchA，则不能通过命令删除branchA，需要先切换到其他分支，再删除当前分支
+        git branch -d 分支名
+        注意:
+            不能删除当前所在的分支
+        例如：当前在branchA，则不能通过命令删除branchA，需要先切换到其他分支，再删除当前分支
 
 
 
@@ -73,31 +126,31 @@ git init默认创建分支master
 
 
 合并分支:
-    例如:把分支testbranch的内容合并到master分支上
-    1.切换到master分支
-        git checkout master
-    2.执行合并命令
-        git merge testbranch
-    此时分支testbranch被合并到了当前所在的分支(master)
+        例如:把分支testbranch的内容合并到master分支上
+        1.切换到master分支
+            git checkout master
+        2.执行合并命令
+            git merge testbranch
+        此时分支testbranch被合并到了当前所在的分支(master)
 
 
 
 分支冲突:
-    ------------------------------------
-    |   <<<<<<< HEAD                    |
-    |   ddddd   mmmmmmmmaster           |
-    |   =======                         |
-    |   ddddd   tttttttestbranchf       |
-    |   >>>>>>> testbranch              |
-    -------------------------------------
-如果分支发生冲突，则会出现如上所述:
-    1.
-    <<<<< head和======之间的内容表示当前所在的分支的文件的内容
-    head指向的是当前所在的分支
+        ------------------------------------
+        |   <<<<<<< HEAD                    |
+        |   ddddd   mmmmmmmmaster           |
+        |   =======                         |
+        |   ddddd   tttttttestbranchf       |
+        |   >>>>>>> testbranch              |
+        -------------------------------------
+        如果分支发生冲突，则会出现如上所述:
+            1.
+            <<<<< head和======之间的内容表示当前所在的分支的文件的内容
+            head指向的是当前所在的分支
 
-    2.
-    ========和>>>>>> testbranch之间的内容表示的是testbranch分支里面的内容
+            2.
+            ========和>>>>>> testbranch之间的内容表示的是testbranch分支里面的内容
 
-解决分支,只需要把   <<<<所在行,====所在行,>>>>所在行删除就可以了
-当然，冲突的代码内容，根据需要调整删除
-即可解决冲突，此时，再次add,commit就可以了
+        解决分支,只需要把   <<<<所在行,====所在行,>>>>所在行删除就可以了
+        当然，冲突的代码内容，根据需要调整删除
+        即可解决冲突，此时，再次add,commit就可以了
