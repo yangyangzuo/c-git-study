@@ -1,0 +1,7 @@
+window下vscode中terminal里的git log乱码:
+    执行locale命令查看配置.
+
+    执行如下命令:
+    export LC_CTYPE=en_US.UTF-8
+    export LC_ALL=en_US.UTF-8
+    
