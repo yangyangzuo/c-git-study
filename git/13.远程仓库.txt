@@ -13,6 +13,13 @@
         $ git remote -v
             origin  https://github.com/yangyangzuo/c-git-study.git (fetch)
             origin  https://github.com/yangyangzuo/c-git-study.git (push)
+   
+    例如:
+        git clone https://github.com/yangyangzuo/c-git-study.git
+        该命令会自动创建一个远程仓库的别名(origin)，对应着这个远程仓库地址(https://github.com/yangyangzuo/c-git-study.git)
+        使用git remote -v 查看:
+            origin  https://github.com/yangyangzuo/c-git-study.git (fetch)
+            origin  https://github.com/yangyangzuo/c-git-study.git (push)
 
 
 
