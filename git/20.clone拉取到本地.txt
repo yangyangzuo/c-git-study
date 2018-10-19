@@ -23,7 +23,7 @@
 					origin  https://github.com/yangyangzuo/c-git-study.git (fetch)
 					origin  https://github.com/yangyangzuo/c-git-study.git (push)
             2.拉去该仓库的所有数据到本地
-            3.在本地创建一个分支(origin/master),指向远程仓库的master分支,通过 git branch -r查看远程分支
+            3.在本地创建一个(远程跟踪)分支(origin/master),指向远程仓库的master分支,通过 git branch -r查看远程分支
 				$git branch -r
 					origin/HEAD -> origin/master
 					origin/master
