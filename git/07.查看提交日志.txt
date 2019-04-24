@@ -5,7 +5,9 @@
 		
 		git log 
 		git log --oneline
+		git log --pretty=oneline
 		git reflog
+		git log --graph
 		
 
 		git log 
