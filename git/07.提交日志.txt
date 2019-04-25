@@ -52,6 +52,13 @@
 
 		
 		
-		
+修改提交日志信息:
+	touch test.txt
+	git add .
+	//写错了提交备注信息
+	git commit -m 'create testt.txt'
+	//修改提交备注信息
+	git commit --amend -m 'create test.txt'
+
 		
 		

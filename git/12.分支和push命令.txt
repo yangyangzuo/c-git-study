@@ -74,7 +74,13 @@ git init默认创建分支master
             *所在的行，即是当前代码所在的分支
 
         当创建一个新分支的时候，这个分支指向的提交对象和我们当前分支所指向的提交对象相同
-
+        分支创建，实际是创建一个指针，指向(当前所在的分支所指向的)提交记录的地址
+        例如：当前在master分支，master分支最后一次提交的hash是*****111，那么
+        执行git branch newbranch的时候，实际是创建了一个分支名为newbranch,这个新分支指向
+        (我们当前所在的分支)master分支最后一次提交的hash******111，此时相当于master和newbranch分支指向同一个提交时间点
+        由于我们当前在master分支，所以git里面有一个head指针指向我们的master，表示当前我们在master分支
+        如果执行git checkout newbranch,则此时head指针就指向了newbranch，即:我们切换到了newbranch分支
+        
 
 
 切换分支:
@@ -119,7 +125,7 @@ git init默认创建分支master
         注意:
             不能删除当前所在的分支
         例如：当前在branchA，则不能通过命令删除branchA，需要先切换到其他分支，再删除当前分支
-
+        删除分支的过程，实际就是删除指向当前提交时间点的一个指针，对于代码和提交的历史记录不会造成任何影响
 
 
 
@@ -133,6 +139,12 @@ git init默认创建分支master
             git merge testbranch
         此时分支testbranch被合并到了当前所在的分支(master)
 
+        分支的合并，如果没有代码冲突，则默认会进行快速合并fast-merge，即:直接修改master的指针指向testbranch最后一次提交的时间点
+
+        这样做有一个缺点，就是我们的分支合并的过程不可见，即:我们没有保留这个合并分支的历史记录
+        如果我们想保留这个合并分支的历史记录，可以禁用快速合并
+        git merge --no-ff testbranch
+        此时，会强制我们写一个分支合并记录，即:保留我们分支合并的过程
 
 
 分支冲突:
