@@ -43,10 +43,10 @@
     
     例如:
     $ git remote show origin
-    * remote origin
+    * remote origin (远程仓库的别名)
     Fetch URL: https://git.coding.net/dr_yao/Qizh.App.git
     Push  URL: https://git.coding.net/dr_yao/Qizh.App.git
-    HEAD branch: v2
+    HEAD branch: v2  (远程仓库的所在的默认分支)
     Remote branches:
         master    tracked
         v2        tracked
@@ -67,7 +67,7 @@
     当你执行 git pull 时哪些分支会自动合并。
 
 
-远程仓库的移除和重命名:
+修改/删除远程仓库的别名:
     git remote rename <现有的仓库别名> <修改后的仓库别名>
     git remote rm <现有的仓库别名>
 

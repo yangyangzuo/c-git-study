@@ -3,11 +3,14 @@
 		https://git-scm.com/docs/git-log
 		
 		
+		显示提交日志(增删改查)
 		git log 
 		git log --oneline
 		git log --pretty=oneline
-		git reflog
 		git log --graph
+
+		所有的日志，除了提交日志，还包含操作日志(例如:更改当前分支的所指向的提交对象)
+		git reflog
 		
 
 		git log 
