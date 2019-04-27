@@ -46,7 +46,7 @@
     * remote origin (远程仓库的别名)
     Fetch URL: https://git.coding.net/dr_yao/Qizh.App.git
     Push  URL: https://git.coding.net/dr_yao/Qizh.App.git
-    HEAD branch: v2  (远程仓库的所在的默认分支)
+    HEAD branch: v2  (远程仓库的所在的默认分支,github在分支管理里面可以设置默认分支)
     Remote branches:
         master    tracked
         v2        tracked

@@ -6,6 +6,8 @@
 		这个时候回看到提示
 		From https://github.com/yangyangzuo/test
  		* [new branch]      zuo        -> origin/zuo
+		实际是在本地创建了一个分支名为origin/zuo的分支，对应着远程的分支zuo
+
 
 		执行如下命令查看分支:
 		git branch 		查看本地分支

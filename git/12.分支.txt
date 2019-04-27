@@ -1,35 +1,29 @@
 参考:
     https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%AE%80%E4%BB%8B
 
-git init默认创建分支master，并创建head指针指向当前所在的分支master
+分支的初始化:
+    git init默认创建分支master，并创建head指针指向当前所在的分支master
+        当第一次提交后，master指向第一次的提交对象(对象里面的parent属性为null)的地址(指针),而且还有一个head指针指向当前的分支(master)
+        当第二次提交后，master指向第二次的提交对象(对象里面的parent属性指向上次的提交对象)的地址(指针),而且还有一个head指针指向当前的分支(master)
+        ...
+        多次提交之后，由于parent属性的关系，就会形成一个链式结构,这个完整的链式结构，我们可以通过分支来获得(分支对象总是指着最后一次提交的对象)
+        注意:
+            提交对象:{
+                文件大小,
+                目录树结构,
+                parent指针,
+                author,
+                commiter,
+                提交描述
+            }
 
-    当第一次提交后，master指向第一次的提交对象(对象里面的parent属性为null)的地址(指针),而且还有一个head指针指向当前的分支(master)
-
-    当第二次提交后，master指向第二次的提交对象(对象里面的parent属性指向上次的提交对象)的地址(指针),而且还有一个head指针指向当前的分支(master)
-
-    ...
-
-    多次提交之后，由于parent属性的关系，就会形成一个链式结构,这个完整的链式结构，我们可以通过分支来获得(分支对象总是指着最后一次提交的对象)
-
-    注意:
-        提交对象:{
-            文件大小,
-            目录树结构,
-            parent指针,
-            author,
-            commiter,
-            提交描述
-        }
-
-        分支对象:总是指向最后一次的提交对象
-
-        head指针:总是指向当前的分支对象,例如：你切换了另一个分支，则head指针就指向了另一个分支对象
-
-        提交者(committer)和作者(author)的区别:
-            https://stackoverflow.com/questions/18750808/difference-between-author-and-committer-in-git
-            author是代码的编写者
-            commiter是代码的提交者
-            git中允许对代码重写,或者打补丁(https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2)
+            分支对象:总是指向最后一次的提交对象
+            head指针:总是指向当前的分支对象,例如：你切换了另一个分支，则head指针就指向了另一个分支对象
+            提交者(committer)和作者(author)的区别:
+                https://stackoverflow.com/questions/18750808/difference-between-author-and-committer-in-git
+                author是代码的编写者
+                commiter是代码的提交者
+                git中允许对代码重写,或者打补丁(https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2)
 
 
 
@@ -115,11 +109,15 @@ git init默认创建分支master，并创建head指针指向当前所在的分�
 
 
 
-
-
-
         创建一个新分支并且立即切换到该分支上:
-            git checkout -b 分支名
+            git checkout -b 新分支名
+            上面的方法创建的新分支内容和当前所在的分支一样
+
+            如果想指定创建的新分支，是基于哪个分支的，执行
+            git checkout -b 新分支名 参考分支名
+            例如:
+            git checkout -b newBranchName oldBranchName
+            git checkout -b newBranchName origin/branchName
 
 
 
@@ -174,23 +172,11 @@ git init默认创建分支master，并创建head指针指向当前所在的分�
 
 
 
-git push命令:
-    推送当前所在的分支，到远程仓库对应的分支
-        git push 远程仓库地址(或者远程仓库地址别名) 远程仓库对应的分支名
-        如果远程仓库对应的分支名不存在，则会在远程仓库创建对应的分支
-
-    推送本地某个特定的分支，到远程仓库对应的分支
-        git push 远程仓库地址(或者远程仓库地址别名) 本地的某一个分支:远程仓库对应的分支名
-
-        如果省略了本地的某一个分支，即:
-        git push 远程仓库地址(或者远程仓库地址别名) :远程仓库对应的分支名
-        则会把远程仓库对应的分支删除，相当于推动一个空，替换掉远程仓库对应的分支，即:删除
-
 
 
 远程分支:
-    在远程仓库创建新分支:
-            1.本地创建新分支，推送到远程:
+
+    远程仓库创建新分支(以本地创建的新分支作为参考):
                 本地创建新分支
                 git branch newbranch
                 git checkot newbranch
@@ -201,11 +187,11 @@ git push命令:
 
 
 
-            2.本地仓库以远程创建的新分支作为参照，并在本地创建一个新的对应分支:
+    本地仓库创建新分支(以远程创建的新分支作为参照):
                 远程仓库创建分支hello
 
                 本地拉去远程所有分支
-                git fetch
+                git fetch(或者执行git pull)
                 本地查看远程所有分支
                 git branch -r
                 本地切换到拉取的远程创建的新分支(需要使用'远程仓库别名/远程仓库新分支名'的方式切换)
@@ -215,6 +201,15 @@ git push命令:
                 这样本地的localHello就和远程仓库的hello分支对应起来了
                 再切换到本地的localHello分支
                 git checkout localHello
+
+
+	删除远程分支:
+		推送一个空分支到远程分支，其实就相当于删除远程分支：
+		$ git push origin :testb
+		或者
+		命令:git push 远程仓库别名/url --delete 远程分支名称
+		$ git push origin --delete testbbb
+		
 
 
 实际开发分支结构:
