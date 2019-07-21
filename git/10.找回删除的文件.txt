@@ -10,3 +10,58 @@
 如果想找回文件,git reset --hard  对应版本的hash		
 如果想重置为版本库里最后一次提交的状态，可以直接写head,head是一个指针，只想着最新的一次提交,例如:
 git reset --hard head
+
+
+
+
+1.本地新建的文件，没有添加到git控制中
+    >touch a.js
+    >git status
+        Untracked files:
+        (use "git add <file>..." to include in what will be committed)
+        a.js
+    未添加到版本库中的文件，不能使用git remove命令删除
+    >rm a.js
+    没有任何的影响，此时删除的文件，只能通过数据恢复找回
+
+
+2.文件通过add命令添加到暂存区,但是从来没有提交过(此时版本库中并没有保存该文件)
+    >touch a.js
+    >git add .
+    >git status
+        On branch master
+        No commits yet
+        Changes to be committed:
+        (use "git rm --cached <file>..." to unstage)
+            new file:   a.js
+    此时文件在暂存区已经有备份，提示git rm --cached <file>...可以删除暂存区中的该文件
+    如果执行git rm --cached a.js,文件只是在暂存区被删除，本地文件并没有被删除
+
+
+
+    >touch a.js
+    >git add .
+    >git status
+        On branch master
+        Changes to be committed:
+        (use "git reset HEAD <file>..." to unstage)
+
+            new file:   aa
+    此时文件在暂存区已经有备份
+    >rm aa
+    >git status
+        git status
+        On branch master
+        Changes to be committed:
+        (use "git reset HEAD <file>..." to unstage)
+
+            new file:   aa
+
+        Changes not staged for commit:
+        (use "git add/rm <file>..." to update what will be committed)
+        (use "git checkout -- <file>..." to discard changes in working directory)
+    从暂存区恢复即可
+    >git checkout -- aa
+
+
+3.如果文件被删除，而且被提交到服务器，则文件只能通过版本回退找回
