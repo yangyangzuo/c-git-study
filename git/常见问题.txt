@@ -5,3 +5,7 @@ window下vscode中terminal里的git log乱码:
     export LC_CTYPE=en_US.UTF-8
     export LC_ALL=en_US.UTF-8
     
+
+
+ubuntu下git status中文文件乱码:
+    git config --global core.quotepath false
