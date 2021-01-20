@@ -9,3 +9,66 @@ window下vscode中terminal里的git log乱码:
 
 ubuntu下git status中文文件乱码:
     git config --global core.quotepath false
+
+
+
+
+保存git账号密码:    
+    1. git config --global credential.helper store   //设置git账号保存,如果不加--global则针对某个仓库生效
+    2. git config --global user.email "你的邮箱"
+    3. git config --global user.name "你的github用户名"
+    4. git pull/push
+    5. 输入一次账号密码即可
+
+
+    说明:
+        1.git config --global credential.helper store
+        创建～/.gitconfig文件,并添加:
+            [credential]
+                helper=store
+        这内容表示的就是git存储用户输入过的账户和密码,这个也可以手动编辑进行添加
+        2.git config --global user.email "你的邮箱"
+        创建～/.gitconfig文件,并添加:
+            [user]
+                email = 你的邮箱
+        3.git config --global user.name "你的github用户名"
+        创建～/.gitconfig文件,并添加:
+            [user]
+                name = 你的github用户名
+        4.当输入一次账号和密码后,会生成: ~/.git-credentials
+        该文件记录了对应的账号密码和git地址,文件内容格式: http://username:password@ip:port
+
+
+
+
+
+
+
+git的工作区间:
+    0.stash
+    1.workspace:
+        你电脑本地看到的文件和目录，在Git的版本控制下，构成了工作区
+    2.index/staging area/staged files/cache/current directory cache:
+        暂存区/暂存文件/缓存/当前目录缓存:
+        一般存放在 .git目录下，即.git/index,它又叫待提交更新区，用于临时存放你未提交的改动
+        比如，你执行git add，这些改动就添加到这个区域啦
+        文件再提交前必须先添加到index        
+    3.local repository:
+        本地仓库，你执行git clone 地址，就是把远程仓库克隆到本地仓库。它是一个存放在本地的版本库，其中HEAD指向最新放入仓库的版本。当你执行git commit，文件改动就到本地仓库来了~
+    4.upstream repository
+        远程仓库，就是类似github，码云等网站所提供的仓库，可以理解为远程数据交换的仓库~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
