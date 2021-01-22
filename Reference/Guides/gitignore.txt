@@ -135,7 +135,8 @@ PATTERN FORMAT
     如果模式末尾有分隔符，则该模式将仅匹配目录，否则该模式可以同时匹配文件和目录。
 
     For example, a pattern doc/frotz/ matches doc/frotz directory, but not a/doc/frotz directory; 
-    例如，模式doc/frotz/匹配doc/frotz目录，但不匹配a/doc/frotz目录；(因为此时的路径是相对于.gitignore文件所在的目录)
+    例如，模式doc/frotz/匹配doc/frotz目录，但不匹配a/doc/frotz目录；
+    (因为此时的路径是相对于.gitignore文件所在的目录,doc/frotz/等价于/doc/frotz/,即完整路径:.gitignore文件所在目录/doc/frotz/)
     however frotz/ matches frotz and a/frotz that is a directory (all paths are relative from the .gitignore file).
     但是frotz/匹配frotz和a/frotz(这是一个目录)（所有路径都是.gitignore文件的相对路径）。
 
@@ -180,71 +181,101 @@ PATTERN FORMAT
 
 CONFIGURATION
     The optional configuration variable core.excludesFile indicates a path to a file containing patterns of file names to exclude, 
+    可选的配置变量core.excludesFile指示文件的路径，其中包含要排除的文件名的pattern
     similar to $GIT_DIR/info/exclude. 
+    类似于 $GIT_DIR/info/exclude。
     Patterns in the exclude file are used in addition to those in $GIT_DIR/info/exclude.
+    除了$GIT_DIR/info/exclude中的文件pattern以外，(变量core.excludesFile指示文件的路径)路径文件中的pattern也会排除
 
 NOTES
     The purpose of gitignore files is to ensure that certain files not tracked by Git remain untracked.
-
+    gitignore文件的目的是确保未被Git跟踪的某些文件保持未跟踪状态。
     To stop tracking a file that is currently tracked, use git rm --cached.
+    要停止跟踪当前跟踪的文件，请使用 git rm --cached
+    例如:
+        git rm --cached file_path
+        git commit -m '停止版本库管理某个文件'
+        git push.
+
+    说明:
+        rm: 是仅仅删除working directory里的文件,对于git,需要执行git命令,例如,add,commit
+        git rm: 等价于rm和git add .
+        git rm --cached: 
+            保留本地文件，仅仅删除暂存区(index/staging area/staged files/cache/current directory cache)中的文件,
+            删除后,该文件相当于没有被git版本控制.
+            即:停止跟踪该文件的变化
 
 EXAMPLES
     The pattern hello.* matches any file or folder whose name begins with hello. 
+    hello.*模式匹配名称以开头的任何文件或文件夹
+
     If one wants to restrict this only to the directory and not in its subdirectories, one can prepend the pattern with a slash, 
+    如果只想将此限制于目录而不是其子目录，则可以在模式前面加上斜杠
     i.e. /hello.*; the pattern now matches hello.txt, hello.c but not a/hello.java.
+    即/hello.*；模式现在匹配hello.txt，hello.c但是不匹配 a/hello.java
+    (因为开头/中间/(开头和中间都有)由斜杠,则这个路径是把.gitignore文件所在的路径作为相对路径)
 
     The pattern foo/ will match a directory foo and paths underneath it, 
+    该模式foo/将匹配目录foo及目录下的内容
     but will not match a regular file or a symbolic link foo (this is consistent with the way how pathspec works in general in Git)
-
+    但不匹配正则表达式文件(不匹配正则表达式符号)或符号链接foo（这与pathspec在Git中的一般工作方式一致）
     The pattern doc/frotz and /doc/frotz have the same effect in any .gitignore file. 
+    模式doc/frotz和/doc/frotz在任何.gitignore文件中都具有相同的效果。
     In other words, a leading slash is not relevant if there is already a middle slash in the pattern.
+    换句话说，如果模式中已经存在中间斜杠，那么前导斜杠就无关紧要(开始和中间由斜杠,则路径是相对于.gitignore文件所在路径)
 
     The pattern "foo/*", matches "foo/test.json" (a regular file), "foo/bar" (a directory), 
+    模式foo/*匹配foo/test.json（常规文件）和foo/bar（目录）
     but it does not match "foo/bar/hello.c" (a regular file), as the asterisk in the pattern does not match "bar/hello.c" which has a slash in it.
+    但不匹配foo/bar/hello.c（常规文件），因为该模式中的*不匹配(其中带有斜杠的bar/hello.c)
 
         $ git status
-        [...]
-        # Untracked files:
-        [...]
-        #       Documentation/foo.html
-        #       Documentation/gitignore.html
-        #       file.o
-        #       lib.a
-        #       src/internal.o
-        [...]
+            [...]
+            # Untracked files:
+            [...]
+            #       Documentation/foo.html
+            #       Documentation/gitignore.html
+            #       file.o
+            #       lib.a
+            #       src/internal.o
+            [...]
         $ cat .git/info/exclude
-        # ignore objects and archives, anywhere in the tree.
-        *.[oa]
+            # ignore objects and archives, anywhere in the tree.
+            *.[oa]
         $ cat Documentation/.gitignore
-        # ignore generated html files,
-        *.html
-        # except foo.html which is maintained by hand
-        !foo.html
+            # ignore generated html files,
+            *.html
+            # except foo.html which is maintained by hand
+            !foo.html
         $ git status
-        [...]
-        # Untracked files:
-        [...]
-        #       Documentation/foo.html
-        [...]
+            [...]
+            # Untracked files:
+            [...]
+            #       Documentation/foo.html
+            [...]
+
     Another example:
 
         $ cat .gitignore
-        vmlinux*
+            vmlinux*
         $ ls arch/foo/kernel/vm*
-        arch/foo/kernel/vmlinux.lds.S
+            arch/foo/kernel/vmlinux.lds.S
         $ echo '!/vmlinux*' >arch/foo/kernel/.gitignore
+
     The second .gitignore prevents Git from ignoring arch/foo/kernel/vmlinux.lds.S.
 
     Example to exclude everything except a specific directory foo/bar (note the /* - without the slash, the wildcard would also exclude everything within foo/bar):
 
         $ cat .gitignore
-        # exclude everything except directory foo/bar
-        /*
-        !/foo
-        /foo/*
-        !/foo/bar
+            # exclude everything except directory foo/bar
+            /*
+            !/foo
+            /foo/*
+            !/foo/bar
 SEE ALSO
     git-rm[1], gitrepository-layout[5], git-check-ignore[1]
 
 GIT
     Part of the git[1] suite
+
+ 

@@ -9,6 +9,8 @@ window下vscode中terminal里的git log乱码:
 
 ubuntu下git status中文文件乱码:
     git config --global core.quotepath false
+git commit 乱码
+    git config --global i18n.commitencoding utf-8
 
 
 
@@ -57,10 +59,6 @@ git的工作区间:
         本地仓库，你执行git clone 地址，就是把远程仓库克隆到本地仓库。它是一个存放在本地的版本库，其中HEAD指向最新放入仓库的版本。当你执行git commit，文件改动就到本地仓库来了~
     4.upstream repository
         远程仓库，就是类似github，码云等网站所提供的仓库，可以理解为远程数据交换的仓库~
-
-
-
-
 
 
 
