@@ -36,7 +36,29 @@ OPTIONS
 
     --cached
         Use this option to unstage and remove paths only from the index. Working tree files, whether modified or not, will be left alone.
-        使用此选项可以取消暂存(文件从暂存区中移除)并仅从索引中删除路径。工作树文件，无论是否修改，都将被保留。
+        使用此选项可以取消暂存(文件从暂存区中移除)并仅从index索引中删除路径。工作树文件，无论是否修改，都将被保留。
+        例如:
+            我们想把文件从Git暂存区/仓库中删除,但仍然希望保留在当前工作目录中
+			换句话说，你想让文件保留在磁盘，但是并不想让 Git 继续跟踪。 
+			当你忘记添加 .gitignore 文件，不小心把一个很大的日志文件或一堆 .a 这样的编译生成文件添加到暂存区时，这一做法尤其有用。 
+			或者说
+			你通过npm i安装了很多包，不小心git add . 则此时node_modules被添加到了暂存区，此时，node_module在磁盘中需要使用，但是并不需要被追踪(不需要提交)
+			为达到这一目的，使用 --cached 选项：
+			$ git rm --cached README
+			git rm 命令后面可以列出文件或者目录的名字，也可以使用 glob 模式。 这里命令执行后,暂存区里面就不会有 README这个文件，即:README又变成了untracked files
+            如果进行了git commit -m 'test',则本地仓库中的对应文件README就会被删除
+            如果进行了git push,则远程仓库中对应文件README就会被删除
+            需要注意的是,如果需要移除的是一个目录,则需要加上-r选项
+			$ git rm --cached node_modules -r
+
+        即:
+            git rm --cached 文件名
+            git rm --cached 目录名 -r
+            该命令的意义是,移除暂存区/本地仓库/远程仓库中对应的文件/目录,但是在本地磁盘/working tree中保留对应的文件/目录
+
+
+
+
 
     --ignore-unmatch
     Exit with a zero status even if no files matched.

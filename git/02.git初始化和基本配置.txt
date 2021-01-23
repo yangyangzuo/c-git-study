@@ -253,3 +253,8 @@ Note
 			表示在配置的时候会读取/写入你电脑上的当前使用仓库的 Git 目录中的 config 文件
 			（就是 .git/config）:针对该仓库。
 		
+
+Git 支持多种数据传输协议:
+    https://
+    git://
+    SSH传输协议，比如 user@server:path/to/repo.git 
