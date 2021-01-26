@@ -113,7 +113,7 @@ PATTERN FORMAT
 
     An optional prefix "!" which negates the pattern; any matching file excluded by a previous pattern will become included again. 
     可选前缀!,用于否定模式；先前模式排除的所有匹配文件将再次包含在内
-    
+    (包含特定的文件)
 
     It is not possible to re-include a file if a parent directory of that file is excluded. 
     如果某个文件的父目录被排除在外，则无法重新包含该文件
@@ -129,9 +129,10 @@ PATTERN FORMAT
     If there is a separator at the beginning or middle (or both) of the pattern, then the pattern is relative to the directory level of the particular .gitignore file itself. 
     如果在模式的开头或中间（或两者）有分隔符，则该模式是相对于特定.gitignore文件本身的目录级别的。
     Otherwise the pattern may also match at any level below the .gitignore level.
-    否则，模式也可能在该级别以下的任何级别匹配.gitignore。
+    否则，模式也可能在该级别(.gitignore文件本身所在的目录级别)及其以下的任何级别匹配
 
-    If there is a separator at the end of the pattern then the pattern will only match directories, otherwise the pattern can match both files and directories.
+    If there is a separator at the end of the pattern then the pattern will only match directories, 
+    otherwise the pattern can match both files and directories.
     如果模式末尾有分隔符，则该模式将仅匹配目录，否则该模式可以同时匹配文件和目录。
 
     For example, a pattern doc/frotz/ matches doc/frotz directory, but not a/doc/frotz directory; 
@@ -139,6 +140,7 @@ PATTERN FORMAT
     (因为此时的路径是相对于.gitignore文件所在的目录,doc/frotz/等价于/doc/frotz/,即完整路径:.gitignore文件所在目录/doc/frotz/)
     however frotz/ matches frotz and a/frotz that is a directory (all paths are relative from the .gitignore file).
     但是frotz/匹配frotz和a/frotz(这是一个目录)（所有路径都是.gitignore文件的相对路径）。
+
 
     An asterisk "*" matches anything except a slash.     
     星号“*”匹配除斜杠之外的所有内容
@@ -173,7 +175,32 @@ PATTERN FORMAT
     其他连续的星号被视为常规星号，并将根据之前的规则进行匹配。
 
 
+    其他说明:
+        所谓的 glob 模式是指 shell 所使用的简化了的正则表达式。 
+        星号（*）匹配零个或多个任意字符；
+        [abc] 匹配任何一个列在方括号中的字符 （这个例子要么匹配一个 a，要么匹配一个 b，要么匹配一个 c） 
+        问号（?）只匹配一个任意字符；
+        如果在方括号中使用短划线分隔两个字符， 表示所有在这两个字符范围内的都可以匹配（比如 [0-9] 表示匹配所有 0 到 9 的数字）。 
+        使用两个星号（**）表示匹配任意中间目录，比如 a/**/z 可以匹配 a/z 、 a/b/z 或 a/b/c/z 
 
+        我们再看一个 .gitignore 文件的例子：
+        # 忽略所有的 .a 文件
+        *.a
+
+        # 但跟踪所有的 lib.a，即便你在前面忽略了 .a 文件
+        !lib.a
+
+        # 只忽略当前目录下的 TODO 文件，而不忽略 subdir/TODO
+        /TODO
+
+        # 忽略任何目录下名为 build 的文件夹
+        build/
+
+        # 忽略 doc/notes.txt，但不忽略 doc/server/arch.txt
+        doc/*.txt
+
+        # 忽略 doc/ 目录及其所有子目录下的 .pdf 文件
+        doc/**/*.pdf
 
 
 

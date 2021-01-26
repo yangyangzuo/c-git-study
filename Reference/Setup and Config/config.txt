@@ -1097,9 +1097,19 @@ commitGraph.readChangedPaths
 If true, then git will use the changed-path Bloom filters in the commit-graph file (if it exists, and they are present). Defaults to true. See git-commit-graph[1] for more information.
 
 credential.helper
-Specify an external helper to be called when a username or password credential is needed; the helper may consult external storage to avoid prompting the user for the credentials. This is normally the name of a credential helper with possible arguments, but may also be an absolute path with arguments or, if preceded by !, shell commands.
-
-Note that multiple helpers may be defined. See gitcredentials[7] for details and examples.
+[krəˈdenʃl]提供证明书(或证件)
+凭据帮助器
+    Specify an external helper to be called when a username or password credential is needed;
+    指定 需要用户名或密码凭据时 要调用的外部帮助程序 
+    the helper may consult external storage to avoid prompting the user for the credentials. 
+    帮助程序可以咨询/查询外部存储，以避免提示用户输入凭据
+    This is normally the name of a credential helper with possible arguments, 
+    这通常是 可能带有参数的凭据帮助程序的名称
+    but may also be an absolute path with arguments or, if preceded by !, shell commands.
+    但也可能是带有参数的绝对路径，或者如果是!shell命令，则为绝对路径
+    Note that multiple helpers may be defined. See gitcredentials[7] for details and examples.
+    注意，可以定义多个帮助程序 有关详细信息和示例，请参见gitcredentials [7]。
+    git config --global credential.helper store，设置该值,可以让用户把账号和密码存储到本地磁盘,具体描述根据链接查询文档
 
 credential.useHttpPath
 When acquiring credentials, consider the "path" component of an http or https URL to be important. Defaults to false. See gitcredentials[7] for more information.
