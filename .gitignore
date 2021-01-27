@@ -1,0 +1,7 @@
+#排除子目录下的所有的如下文件夹
+.DS_Store
+*.log
+node_modules
+dist
+视频
+

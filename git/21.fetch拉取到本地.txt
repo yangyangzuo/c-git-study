@@ -1,0 +1,38 @@
+	>>>>>>>拉取到本地
+		git fetch
+		远程的所有分支都拉去到本地
+		例如:当前本地库和远程库同步，这时在远程库建立一个分支zuo
+		git fetch可以把远程新建的分支拉去到本地
+		这个时候回看到提示
+		From https://github.com/yangyangzuo/test
+ 		* [new branch]      zuo        -> origin/zuo
+		实际是在本地创建了一个分支名为origin/zuo的分支，对应着远程的分支zuo
+
+
+		执行如下命令查看分支:
+		git branch 		查看本地分支
+		git branch -r	查看远程分支
+		git branch -a 	查看本地和远程的所有分支
+		
+		git fetch <远程主机名> <分支名>
+		所取回的更新，在本地主机上要用”远程主机名/分支名”的形式读取。
+		例如:
+			git fetch origin test666
+		此时，代码并没有合并到本地的某个分支里，而是在一个特有分支名里面
+			git checkout origin/test666
+			切换到对应的分支里面进行查看
+
+	如果要把拉去的内容合并到当前某个分支上,
+	1.切换到对应的分支
+	2.git merge origin/test666
+	就可以把拉去的内容合并到当前所在的分支了
+
+	以这个拉取的远程新分支为参照，创建一个新的本地分支
+	git checkout origin/test666
+
+	
+	创建一个新的本地分支，并且切换到对应的分支
+	git checkout -b localtest666
+	或者
+	git branch localtest666
+	git checkout localtest666

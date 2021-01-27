@@ -1,0 +1,181 @@
+https://git-scm.com/docs/git-rm
+
+NAME
+    git-rm - Remove files from the working tree and from the index
+    git-rm-从工作树和index(staged area)中删除文件
+
+    The index is a single, large, binary file in <baseOfRepo>/.git/index, which lists all files in the current branch, 
+    their sha1 checksums, time stamps and the file name -- it is not another directory with a copy of files in it.
+    查看暂存区内容:
+        $ git ls-files --stage
+
+
+
+SYNOPSIS
+    git rm [-f | --force] [-n] [-r] [--cached] [--ignore-unmatch]
+        [--quiet] [--pathspec-from-file=<file> [--pathspec-file-nul]]
+        [--] [<pathspec>…​]
+DESCRIPTION
+    Remove files matching pathspec from the index, or from the working tree and the index. 
+    从索引中 或者 从(工作目录和索引中)同时 删除与指定路径匹配的文件
+    git rm will not remove a file from just your working directory. 
+    git rm不会仅从您的工作目录中删除文件
+    (即:如果该文件在在工作目录,但是该文件没有被git跟踪,则git rm命令不会删除该文件,如果该文件被跟踪了,则git rm 会删除本地文件和index中的该文件)
+    (There is no option to remove a file only from the working tree and yet keep it in the index; use /bin/rm if you want to do that.) 
+    没有选项 可用来删除工作目录中(磁盘中)的文件,而不删除index中的该文件,如果想这么做,只能使用系统命令/bin/rm
+    The files being removed have to be identical to the tip of the branch, and no updates to their contents can be staged in the index, though that default behavior can be overridden with the -f option. 
+    如果一个文件被跟中了,然后在本地工作目录又修改了(磁盘中的文件和暂存区中的文件不一致),git rm命令也删除不了该文件,但是可以使用-f选项，强制删除磁盘和暂存区中的该文件
+    When --cached is given, the staged content has to match either the tip of the branch or the file on disk, allowing the file to be removed from just the index.
+    如果--cached指定，则暂存的内容必须与分支的顶端或磁盘上的文件匹配，从而允许仅从索引中删除文件。
+
+    总结:
+        1.如果该文件没有被跟踪,git rm命令不会删除磁盘中的该文件,如果要删除需要使用系统命令删除
+        2.如果文件已经被跟中了,git rm命令会删除磁盘和暂存区中的该文件
+            (注意:磁盘中的该文件要和暂存区中的该文件一致,如果磁盘文件被修改了,则git rm需要添加-f参数才会把两者都删除,否则不会进行删除操作)
+        3.只删除磁盘中的文件,而不删除暂存区中的文件,git rm没有命令选项提供该操作(可以通过系统手动删除,或者系统命令删除rm)
+        4.不删除磁盘中的文件,只删除暂存区中的文件,git rm --cached 文件名,(前提也是一样,磁盘中的文件需要和暂存中的文件保持一致,如要要强制删除,需要使用-f选项)
+        5.注意:git rm命令不论怎么删除,前提是,磁盘中的该文件和暂存区中的该文件保持一致,如果不一致,git rm命令不会进行删除操作,如果要强制删除,需要使用-f选项
+
+OPTIONS
+    <pathspec>…​
+    Files to remove. A leading directory name (e.g. dir to remove dir/file1 and dir/file2) can be given to remove all files in the directory, 
+    要删除的文件。可以指定一个前导目录名（例如,要删除的目录是 dir/file1和dir/file2）来删除目录中的所有文件
+    and recursively all sub-directories, but this requires the -r option to be explicitly given.
+    并递归地删除所有子目录，但这要求-r显式给出选项
+
+    The command removes only the paths that are known to Git.
+    该命令仅删除Git已知的路径(文件必须被git跟踪)
+    File globbing matches across directory boundaries. 
+    文件(glob匹配模式/正则匹配模式)匹配跨目录边界
+    Thus, given two directories d and d2, there is a difference between using git rm 'd*' and git rm 'd/*', as the former will also remove all of directory d2.
+    因此，给定两个目录d和d2，使用git rm d* 和 git rm  d/*是不同的，因为前者还将删除所有directory d2
+
+    For more details, see the pathspec entry in gitglossary[7].
+    有关更多详细信息，请参见gitglossary [7]中的pathspec条目。
+
+    -f
+    --force
+        Override the up-to-date check.
+        覆盖文件更新检查(执行删除命令式,会校验本地磁盘和暂存区中的文件是否一致,如果不一致,则git rm命令不会删除磁盘中的文件和暂存区中的该文件,使用-f可以忽略文件不一致检查,强制删除磁盘和暂存区中的该文件)
+
+    -n
+    --dry-run
+        Don’t actually remove any file(s). Instead, just show if they exist in the index and would otherwise be removed by the command.
+        实际上不删除任何文件。而是仅显示它们是否存在于索引中，如果存在暂存区/index中,则列出将被命令删除的文件列表
+
+    -r
+        Allow recursive removal when a leading directory name is given.
+        给定前导目录名称时，允许递归删除(如果删除的是一个目录,需要加上 -r 这个选项)
+
+    --
+        This option can be used to separate command-line options from the list of files, (useful when filenames might be mistaken for command-line options).
+        此选项可用于将命令行选项与文件列表分开（当文件名可能误认为命令行选项时很有用）。
+
+
+    --cached
+        Use this option to unstage and remove paths only from the index. Working tree files, whether modified or not, will be left alone.
+        使用此选项可以取消暂存(文件从暂存区中移除)并仅从index索引中删除路径。工作树文件，无论是否修改，都将被保留。
+        例如:
+            我们想把文件从Git暂存区/仓库中删除,但仍然希望保留在当前工作目录中
+			换句话说，你想让文件保留在磁盘，但是并不想让 Git 继续跟踪。 
+			当你忘记添加 .gitignore 文件，不小心把一个很大的日志文件或一堆 .a 这样的编译生成文件添加到暂存区时，这一做法尤其有用。 
+			或者说
+			你通过npm i安装了很多包，不小心git add . 则此时node_modules被添加到了暂存区，此时，node_module在磁盘中需要使用，但是并不需要被追踪(不需要提交)
+			为达到这一目的，使用 --cached 选项：
+			$ git rm --cached README
+			git rm 命令后面可以列出文件或者目录的名字，也可以使用 glob 模式。 这里命令执行后,暂存区里面就不会有 README这个文件，即:README又变成了untracked files
+            如果进行了git commit -m 'test',则本地仓库中的对应文件README就会被删除
+            如果进行了git push,则远程仓库中对应文件README就会被删除
+            需要注意的是,如果需要移除的是一个目录,则需要加上-r选项
+			$ git rm --cached node_modules -r
+
+        即:
+            git rm --cached 文件名
+            git rm --cached 目录名 -r
+            该命令的意义是,移除暂存区中对应的文件/目录,但是在本地磁盘/working tree中保留对应的文件/目录
+
+
+
+
+
+    --ignore-unmatch
+        Exit with a zero status even if no files matched.
+        即使没有文件匹配，也以零状态退出。
+
+
+
+    -q
+    --quiet
+        git rm normally outputs one line (in the form of an rm command) for each file removed. This option suppresses that output.
+        git rm通常，rm对于每个删除的文件，输出一行（以命令的形式）。此选项禁止输出(删除后,不给出删除结果提示)
+
+    --pathspec-from-file=<file>
+        Pathspec is passed in <file> instead of commandline args. 
+        If <file> is exactly - then standard input is used. 
+        Pathspec elements are separated by LF or CR/LF. 
+        Pathspec elements can be quoted as explained for the configuration variable core.quotePath (see git-config[1]). 
+        See also --pathspec-file-nul and global --literal-pathspecs.
+
+
+    --pathspec-file-nul
+        Only meaningful with --pathspec-from-file. Pathspec elements are separated with NUL character and all other characters are taken literally (including newlines and quotes).
+
+REMOVING FILES THAT HAVE DISAPPEARED FROM THE FILESYSTEM
+    There is no option for git rm to remove from the index only the paths that have disappeared from the filesystem. However, depending on the use case, there are several ways that can be done.
+
+    Using “git commit -a”
+    If you intend that your next commit should record all modifications of tracked files in the working tree and record all removals of files that have been removed from the working tree with rm (as opposed to git rm), use git commit -a, as it will automatically notice and record all removals. You can also have a similar effect without committing by using git add -u.
+
+    Using “git add -A”
+    When accepting a new code drop for a vendor branch, you probably want to record both the removal of paths and additions of new paths as well as modifications of existing paths.
+
+    Typically you would first remove all tracked files from the working tree using this command:
+
+    git ls-files -z | xargs -0 rm -f
+    and then untar the new code in the working tree. Alternately you could rsync the changes into the working tree.
+
+    After that, the easiest way to record all removals, additions, and modifications in the working tree is:
+
+    git add -A
+    See git-add[1].
+
+    Other ways
+    If all you really want to do is to remove from the index the files that are no longer present in the working tree (perhaps because your working tree is dirty so that you cannot use git commit -a), use the following command:
+
+    git diff --name-only --diff-filter=D -z | xargs -0 git rm --cached
+
+
+SUBMODULES
+    Only submodules using a gitfile (which means they were cloned with a Git version 1.7.8 or newer) will be removed from the work tree, as their repository lives inside the .git directory of the superproject. If a submodule (or one of those nested inside it) still uses a .git directory, git rm will move the submodules git directory into the superprojects git directory to protect the submodule’s history. If it exists the submodule.<name> section in the gitmodules[5] file will also be removed and that file will be staged (unless --cached or -n are used).
+
+    A submodule is considered up to date when the HEAD is the same as recorded in the index, no tracked files are modified and no untracked files that aren’t ignored are present in the submodules work tree. Ignored files are deemed expendable and won’t stop a submodule’s work tree from being removed.
+
+    If you only want to remove the local checkout of a submodule from your work tree without committing the removal, use git-submodule[1] deinit instead. Also see gitsubmodules[7] for details on submodule removal.
+
+EXAMPLES
+    git rm Documentation/\*.txt
+    Removes all *.txt files from the index that are under the Documentation directory and any of its subdirectories.
+    *.txt从索引中删除Documentation目录及其任何子目录下的所有文件
+
+
+    Note that the asterisk * is quoted from the shell in this example; 
+    注意，*在此示例中，星号是从shell引用的
+    this lets Git, and not the shell, expand the pathnames of files and subdirectories under the Documentation/ directory.
+    这使Git(而不是Shell)可以扩展目录下文件和子目录的路径名Documentation/
+
+    git rm -f git-*.sh
+    Because this example lets the shell expand the asterisk (i.e. you are listing the files explicitly), it does not remove subdir/git-foo.sh.
+    因为此示例使shell程序扩展星号（即您正在明确列出文件），所以它不会删除 子目录/git-foo.sh。
+
+
+BUGS
+    Each time a superproject update removes a populated submodule (e.g. when switching between commits before and after the removal) a stale submodule checkout will remain in the old location. Removing the old directory is only safe when it uses a gitfile, as otherwise the history of the submodule will be deleted too. This step will be obsolete when recursive submodule update has been implemented.
+
+SEE ALSO
+    git-add[1]
+
+GIT
+    Part of the git[1] suite
+
+
+ 

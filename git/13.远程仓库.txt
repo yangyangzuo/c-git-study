@@ -1,0 +1,79 @@
+查看远程仓库:
+
+    列出远程仓库的对应的地址的别名
+    添加-v或--verbose还会列出对应的仓库的url
+    git remote
+    git remote -v
+    git remote --verbose
+
+    如果使用clone命令克隆了一个仓库,则至少有一个origin.这是Git给你克隆的仓库服务器的默认名字：
+    例如:
+        $ git remote
+            origin
+        $ git remote -v
+            origin  https://github.com/yangyangzuo/c-git-study.git (fetch)
+            origin  https://github.com/yangyangzuo/c-git-study.git (push)
+   
+    例如:
+        git clone https://github.com/yangyangzuo/c-git-study.git
+        该命令会自动创建一个远程仓库的别名(origin)，对应着这个远程仓库地址(https://github.com/yangyangzuo/c-git-study.git)
+        使用git remote -v 查看:
+            origin  https://github.com/yangyangzuo/c-git-study.git (fetch)
+            origin  https://github.com/yangyangzuo/c-git-study.git (push)
+
+
+
+
+添加远程仓库
+    git remote add <shortname> <url> 添加一个新的远程 Git 仓库，同时指定一个你可以轻松引用的简写
+    
+    例如:
+    $ git remote
+        origin
+    $ git remote add pb https://github.com/paulboone/ticgit
+    $ git remote -v
+        origin	https://github.com/schacon/ticgit (fetch)
+        origin	https://github.com/schacon/ticgit (push)
+        pb	https://github.com/paulboone/ticgit (fetch)
+        pb	https://github.com/paulboone/ticgit (push)
+
+
+查看远程仓库更详细信息:
+    git remote show <shortname>
+    
+    例如:
+    $ git remote show origin
+    * remote origin (远程仓库的别名)
+    Fetch URL: https://git.coding.net/dr_yao/Qizh.App.git
+    Push  URL: https://git.coding.net/dr_yao/Qizh.App.git
+    HEAD branch: v2  (远程仓库的所在的默认分支,github在分支管理里面可以设置默认分支)
+    Remote branches:
+        master    tracked
+        v2        tracked
+        ver/3in1  tracked
+        ver/buyer tracked
+        yong      tracked
+        yzc       tracked
+        zy        tracked
+        zyy       tracked
+    Local branches configured for 'git pull':
+        v2 merges with remote v2
+        zy merges with remote zy--->当在zy分支上执行 git pull时,远程zy分支会被自动合并到当前的zy分支
+    Local refs configured for 'git push':
+        v2 pushes to v2 (local out of date)
+        zy pushes to zy (up to date)--->当在zy分支上执行 git push时,会被自动推送到远程的zy分支
+
+    列出了当你在特定的分支上执行 git push 会自动地推送到哪一个远程分支 
+    当你执行 git pull 时哪些分支会自动合并。
+
+
+修改/删除远程仓库的别名:
+    git remote rename <现有的仓库别名> <修改后的仓库别名>
+    git remote rm <现有的仓库别名>
+
+
+
+
+
+
+    

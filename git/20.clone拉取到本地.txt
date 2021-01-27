@@ -1,0 +1,34 @@
+	>>>>>>>拉取到本地
+		git clone 远程仓库地址
+		
+		clone命令执行完后，会自动创建一个远程仓库的别名叫做origin
+		相当于做了如下操作:
+		git remote add origin 远程仓库地址
+
+
+		origin 是当你运行 git clone 时默认的远程仓库的别名，可以通过-o参数指定克隆时，远程仓库的别名  
+        如果你运行 git clone -o hello,那么远程仓库的别名就是hello
+		执行:
+		$ git remote
+			hello
+		$ git remote -v
+			hello   https://github.com/yangyangzuo/webgl-test.git (fetch)
+			hello   https://github.com/yangyangzuo/webgl-test.git (push)
+
+
+
+        执行了git clone <仓库地址>,会有如下操作:
+            1.创建一个远程仓库的别名(origin),对应着这个远程仓库地址(https://github.com/yangyangzuo/c-git-study.git),通过 git remote -v查看
+				$git remote -v
+					origin  https://github.com/yangyangzuo/c-git-study.git (fetch)
+					origin  https://github.com/yangyangzuo/c-git-study.git (push)
+            2.拉去该仓库的所有数据到本地
+            3.在本地创建一个(远程跟踪)分支(origin/master),指向远程仓库的master分支,通过 git branch -r查看远程分支
+				$git branch -r
+					origin/HEAD -> origin/master
+					origin/master
+            4.本地创建一个master分支，和远程仓库(https://github.com/yangyangzuo/c-git-study.git)中的master分支指向同一个提交对象
+			通过git branch查看
+				$ git branch
+					* master
+

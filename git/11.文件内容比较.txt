@@ -1,0 +1,63 @@
+git diff命令说明:
+    git diff
+    (比较工作区和暂存区中的文件的内容的差别)
+    命令执行的结果:显示的是工作区中的文件的内容
+    
+
+    git diff --cached或者 git diff --staged
+    显示的是暂存区的那个文件的内容(暂存区中的内容和上次提交的内容的差别)
+
+
+1.工作区文件和暂存区文件比较:
+    git diff 文件名
+
+    git diff [<options>] [--] [<path>…​]
+    https://www.git-scm.com/docs/git-diff#Documentation/git-diff.txt-emgitdiffemltoptionsgt--no-index--ltpathgtltpathgt
+    查看相对于index所做的更改(暂存区索引/用于下次提交的暂存区中的内容)
+    This form is to view the changes you made relative to the index 
+    (staging area for the next commit). In other words, 
+    换句话说，显示的是，你将要添加到暂存区(索引中),但是还没有添加到的内容，即:工作区中所做的更改
+    the differences are what you could tell Git to further add to the index 
+    but you still haven’t. 
+    你可以使用git add命令把更改的内容添加到暂存区
+    You can stage these changes by using git-add[1].
+
+
+2.工作区文件和本地库中某一版本文件比较:
+    git diff [版本库中的某一版本] [文件名]
+    git diff head 文件名
+    git diff head^ 文件名
+
+    git diff [<options>] <commit> [--] [<path>…​]
+    查看工作区中相对于(本地库中的某次提交时间点)之间的区别
+    This form is to view the changes you have in your working tree relative to the named <commit>. 
+    可以使用HEAD用来比较工作区中和(本地库中最新的一次提交时间点内容)之间的差别
+    You can use HEAD to compare it with the latest commit, 
+    or a branch name to compare with the tip of a different branch.
+
+
+
+3.暂存区的内容和本地库中最后一次提交的文件比较
+    git diff --cached
+
+    git diff [<options>] --cached [<commit>] [--] [<path>…​]
+    https://www.git-scm.com/docs/git-diff#Documentation/git-diff.txt-emgitdiffemltoptionsgt--cachedltcommitgt--ltpathgt82308203
+
+    commit:git历史记录中某一个提交时间点
+    https://www.git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefcommitacommit
+
+    HEAD:当前的分支/HEAD是对本地库中的某个head的引用
+    https://www.git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefHEADaHEAD
+
+    用于查看暂存区中的内容(用于下次要提交到代码库中的内容)，相对于commit(本地库中某一次提交的时间点)所指向的内容之间的差别
+    This form is to view the changes you staged for the next commit relative to the named <commit>.
+    一般我们可能想比较的是本地代码库中最新的一次提交 
+    Typically you would want comparison with the latest commit, 
+    所以如果你没有写commit，则默认值是HEAD，即:本地库中最新的一次提交
+    so if you do not give <commit>, it defaults to HEAD. 
+    If HEAD does not exist (e.g. unborn branches) and <commit> is not given, it shows all staged changes. 
+    --staged is a synonym of --cached.
+    --staged是--cached的一个代名词，即两个表示同一个含义
+
+
+如果不写文件名，会比较多个文件
