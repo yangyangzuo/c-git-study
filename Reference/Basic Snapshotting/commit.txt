@@ -157,20 +157,28 @@
 
         You should understand the implications of rewriting history if you amend a commit that has already been published. 
         (See the "RECOVERING FROM UPSTREAM REBASE" section in git-rebase[1].)
-记录的树照常准备（包括-i和-o选项的作用以及显式pathspec），并且当未从命令行指定其他消息时，将原始提交的消息用作起点，而不是空消息通过选项，如-m，-F，-c，等新犯有相同的父母和作者作为当前一个（该--reset-author 选项可以反对命令这一点）。
-
-它大致相当于：
-
-	$ git reset --soft HEAD ^
-	$ ...做其他事情以得出正确的树...
-	$ git commit -c ORIG_HEAD
-但可用于修改合并提交。
-
-如果您修改已经发布的提交，则应该了解重写历史的含义。（请参阅git-rebase [1]中的“从UPSTREAM REBASE恢复”部分。）
 
 
 
+        例子:
+            $ git commit --amend
+            这个命令会将暂存区中的文件提交
 
+            1.未更改暂存区内容,仅仅更改提交信息
+                git commit --amend -m '提交信息'
+                或者
+                git commit --amend,在弹出框中输入提交信息
+            如果自上次提交以来你还未做任何修改（例如，在上次提交后马上执行了此命令）， 那么快照会保持不变，而你所修改的只是提交信息
+            上次的提交记录没有了,2次提交合并为一个,提交信息是这一次修改的内容
+
+            2.更改暂存区中的内容,而且更改提交信息
+            例如，你提交后发现忘记了暂存某些需要的修改，可以像下面这样操作：
+            $ git commit -m 'initial commit'
+            $ git add forgotten_file
+            $ git commit --amend,在弹出框中输入提交信息
+            最终你只会有一个提交——第二次提交将代替第一次提交的结果。
+
+        总结:更改上次的提交内容和提交信息
 
 
 

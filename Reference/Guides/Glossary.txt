@@ -96,31 +96,63 @@ DESCRIPTION
     hash
     In Git’s context, synonym for object name.
 
-    head
-    对分支顶端的提交的命名引用。(本地库/远程库中，最新(最后)的一次提交的引用)
-    A named reference to the commit at the tip of a branch. 
-    头部存储在$ GIT_DIR / refs / heads /目录中的文件中，
-    Heads are stored in a file in $GIT_DIR/refs/heads/ directory, 
-    除非使用压缩引用。 （参见git-pack-refs [1]。）
-    except when using packed refs. (See git-pack-refs[1].)
-    执行
-    cd .git/refs/heads
-    ls
-    输出:master test
 
 
-    HEAD
-    当前分支
-    The current branch. In more detail: 
-    (工作区的内容是由 HEAD所指向的 本地库/远程库中的分支中的内容衍生而来)
-    Your working tree is normally derived from the state of the tree referred to by HEAD. 
-    HEAD是对仓库中某一个(head)的引用(仓库中可能有很多分支，每个分支都有一个head指向他的最后一次提交的内容)，
-    换句话说:HEAD引用着不同的仓库中某一个分支，
-    除非使用detached HEAD，在这种情况下它直接引用任意提交。
-    HEAD is a reference to one of the heads in your repository, except when using a detached HEAD, 
-    in which case it directly references an arbitrary commit.
-    进入.git目录，cat HEAD查看
-    ref: refs/heads/test
+    head    
+        A named reference to the commit at the tip of a branch. 
+        分支顶部提交的一个引用名字(本地库/远程库中，最新的一次提交的引用)
+        
+        Heads are stored in a file in $GIT_DIR/refs/heads/ directory, except when using packed refs. (See git-pack-refs[1].)
+        默认heads存储在$GIT_DIR/refs/heads/目录中的文件中，除非使用压缩引用。 （参见git-pack-refs [1]。）
+        
+        例如:
+            cd .git/refs/heads
+            ls
+            输出:
+                master 
+                test
+                dev
+                release
+        .git/refs/heads目录下由4个文件,分别是master,test,dev,release
+        4个文件中分别存储着对应的分支的最新的一次提交记录,例如:c311052bd4a3c0aadcfbd687e55356244dc334c4
+        注意:这个最新的提交不一定是他最后一次提交,我们可以通过一些手段更改head的指向
+
+
+
+
+    HEAD        
+        The current branch.  
+        当前分支,
+        HEAD 是当前分支引用的指针，它总是指向该分支上的最后一次提交
+        In more detail:Your working tree is normally derived from the state of the tree referred to by HEAD. 
+        derived[dɪˈraɪvd]获得;取得;得到;
+        (工作区的内容是由 HEAD所指向的本地库/远程库中的分支中的内容  衍生而来)
+        
+        HEAD is a reference to one of the heads in your repository, 
+        注意:这里的heads指的是当前仓库下的所有分支    
+        HEAD是对仓库中某一个(head)的引用(仓库中可能有很多分支(heads)，每个分支都有一个head指向他的最新的一次提交的内容)，
+        
+        
+        except when using a detached HEAD, in which case it directly references an arbitrary commit.
+        除非使用独立的 HEAD，在这种情况下它直接引用任意提交
+        
+
+
+
+        HEAD中存储这某一个head值(例如:ref: refs/heads/test),所以可以通过HEAD获得当前代码所在的分支
+        HEAD中存储的值:ref: refs/heads/test
+        表示当前指向的分支是test,而且指向的文件是refs/heads/test
+
+
+
+        refs/heads/test文件内容中存储的是test分支的最新的一个提交记录,例如:45497bb75aa7d997100552f39158b7544f91c443
+        即:通过HEAD可以知道当前所在的分支,然后通过对应的文件可以知道当前分支指向的最新的一次提交
+        注意:这个最新的提交不一定是他最后一次提交,我们可以通过一些手段更改head的指向
+
+        进入.git目录，cat HEAD查看
+            ref: refs/heads/test
+
+
 
 
 
