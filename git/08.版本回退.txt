@@ -1,61 +1,7 @@
-	版本回退:
-		git help reset
-		或者
-		https://git-scm.com/docs/git-reset
-
-		
-		git reset --soft
-			暂存区和工作目录文件不更改，本地库里面的指针被修改
-			此时，工作目录的文件会被显示为已经更改，等待提交，
-			即：相当于一个文件修改过了，然后也提交到了暂存区，但是没有提交到本地库
-			本地库的指针向前移动，显得暂存区和工作区的内容都是新的
-			----------------------------
-					暂存区		工作区
-			.....		
-			本地库		
-			----------------------------	
-
-		git reset --mixed
-			工作目录里面的文件不更改，暂存区文件被修改，本地库指针被修改
-			此时，工作目录的文件显示为已经更改，等待提交到暂存区
-			即: 相当于一个文件已经被修改了，然后等待提交到暂存区，再被提交到本地库
-			本地库的指针向前移动，暂存区内容向前移动，显得工作区的内容都是新的
-			----------------------------
-							  工作区
-			.....		
-			本地库	 暂存区					
-			----------------------------
 
 
-		git reset --hard
-			工作目录，暂存区文件被修改，本地库指针被修改
-			即: 本地库回到一个特定版本，
-			工作目录的文件修改为这个版本的文件内容，
-			暂存区也修改为这个版本的内容
-			3个同时向前移动
-			----------------------------
-			.....		
-			.....		
-			本地库		暂存区		工作区
-			----------------------------
 
-
-		例如:
-		1.创建文件
-		2.填写内容，第一个天内容
-		3.提交
-		4.填写内容，第二天内容
-		5.提交
-		6.填写内容,第三天内容
-		7.提交
-		8.填写内容,第四天内容
-		9.提交
-		10.老板看代码，发现有问题，第4天的内容功能不需要了，这个时候我们想回到第二天写的
-		
-		
-		head表示的一个指针，他指向的是我们最后一次提交的结果
-		git工具-->重置解密(git-scm book->7.7)
-		
+?????????????????
 		//方法1:
 		//根据具体的索引值也回退到具体的版本,可向前向后移动
 		git reset --hard 版本的索引值
@@ -76,46 +22,5 @@
 		向前移动三个版本
 		
 
-
-
-		git help reset
-
-		git reset [<mode>] [<commit>]
-
-				(本地库中的当前分支中指向的提交时间点会被重置)
-				This form resets the current branch head to <commit> 
-				and 
-				更新索引(即:重置commit树/重置commit命令提交的操作/重置暂存区内容)
-				possibly updates the index (resetting it to the tree of <commit>) 
-				and 
-				工作树的内容依赖参数mode(工作树/working tree/work dir/工作目录)
-				the working tree depending on <mode>. 
-
-				If <mode> is omitted, defaults to "--mixed".(默认是--mixed) 
-				The <mode> must be one of the following:
-
-		--soft
-				暂存区和工作区的内容一点也不改变
-               Does not touch the index file(暂存区) or the working tree(工作区) at all 
-			   但是本地库中提交的的head指向会被重置(本地库的分支中指向的提交时间点被改变)
-			   (but resets the head to <commit>, just like all modes do). 
-			   This leaves all your changed files "Changes to be committed", as git status would put it.
-
-		--mixed
-			Resets the index but not the working tree (i.e., the changed files are
-			preserved but not marked for commit) and reports what has not been updated.
-			This is the default action.(默认操作)
-
-			If -N is specified, removed paths are marked as intent-to-add (see git-
-			add(1)).
-
-		--hard
-			Resets the index and working tree. Any changes to tracked files in the
-			working tree since <commit> are discarded.
-		
-		.....
-
-
-
-			
+ 
 
