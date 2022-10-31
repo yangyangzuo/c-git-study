@@ -1,0 +1,23 @@
+import { WebGLRenderer } from './WebGLRenderer.js';
+
+class WebGL1Renderer extends WebGLRenderer {}
+
+WebGL1Renderer.prototype.isWebGL1Renderer = true;
+
+// WebGL1Renderer继承WebGLRenderer
+// var renderer = new WebGL1Renderer()
+// 创建渲染对象的时候,因为设置了isWebGL1Renderer=true,
+
+// WebGLRenderer的代码中:
+// const contextNames = [ 'webgl2', 'webgl', 'experimental-webgl' ];
+// if ( _this.isWebGL1Renderer === true ) {
+//     contextNames.shift();
+// }
+// _gl = getContext( contextNames, contextAttributes );
+
+// 实际执行getContext('webgl', 'experimental-webgl' ], contextAttributes )
+// 即获取的canvas对象是:
+
+// canvas.getContext("webgl") || canvas.getContext("experimental-webgl") ;
+
+export { WebGL1Renderer };
