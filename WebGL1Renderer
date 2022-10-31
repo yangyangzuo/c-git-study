@@ -8,6 +8,9 @@ function test(){
 // 官方更改代码
 }
 
+function test2(){
+// 官方更改代码
+}
 // WebGL1Renderer继承WebGLRenderer
 // var renderer = new WebGL1Renderer()
 // 创建渲染对象的时候,因为设置了isWebGL1Renderer=true,
@@ -19,6 +22,9 @@ function test(){
 // }
 // _gl = getContext( contextNames, contextAttributes );
 
+function test3(){
+// 官方更改代码
+}
 // 实际执行getContext('webgl', 'experimental-webgl' ], contextAttributes )
 // 即获取的canvas对象是:
 
