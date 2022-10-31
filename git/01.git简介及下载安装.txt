@@ -21,6 +21,9 @@
 		gitg
 		git-cola
 		
+		
+		
+github上修改了内容，怎么办
 	
 4.开发工具插件结合实现代码管理
 	hbuider中使用git
